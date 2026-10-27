@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rourou Chen</title>
+<meta name="description" content="Rourou Chen, M.Eng. student at Sun Yat-sen University, working on controllable scene generation and reliable 3D perception for autonomous driving.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --text: #1f2328;
+    --muted: #5d6470;
+    --rule: #e3e0d8;
+    --accent: #1f5f8b;
+    --accent-soft: #e8f0f6;
+    --tag: #f1eee7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --text: #e6e6e3;
+      --muted: #9aa1ab;
+      --rule: #2c3036;
+      --accent: #7fb6dc;
+      --accent-soft: #1d2a35;
+      --tag: #22262b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.65 "Source Serif 4", Georgia, serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  /* Header */
+  header { display: flex; gap: 36px; align-items: center; }
+  .photo {
+    flex: 0 0 168px; height: 168px; border-radius: 50%;
+    background: var(--tag) center/cover no-repeat;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font: 500 13px/1.3 Inter, sans-serif; color: var(--muted); text-align: center;
+  }
+  h1 { font-weight: 600; font-size: 40px; line-height: 1.15; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .cn { font-weight: 400; color: var(--muted); font-size: 24px; margin-left: 8px; }
+  .role { color: var(--muted); margin: 0 0 14px; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; font: 500 14px Inter, sans-serif; }
+  .links a {
+    padding: 5px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--text);
+  }
+  .links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  /* Sections */
+  section { margin-top: 48px; }
+  h2 {
+    font: 600 13px Inter, sans-serif; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--rule);
+  }
+  p { margin: 0 0 12px; }
+  .callout {
+    background: var(--accent-soft); border-left: 3px solid var(--accent);
+    padding: 12px 16px; border-radius: 4px; font-size: 16px;
+  }
+
+  .interests { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .interests b { font-weight: 600; }
+
+
+  /* Papers & projects */
+  .item { display: grid; grid-template-columns: 200px 1fr; gap: 22px; margin-bottom: 30px; }
+  .thumb {
+    aspect-ratio: 16/10; border-radius: 6px; background: var(--tag) center/cover no-repeat;
+    border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font: 500 12px Inter, sans-serif; color: var(--muted); text-align: center; padding: 8px;
+  }
+  .item h3 { font-size: 18px; font-weight: 600; margin: 0 0 4px; line-height: 1.35; }
+  .meta { color: var(--muted); font-size: 15px; margin: 0 0 6px; }
+  .venue { font-style: italic; }
+  .item p.desc { font-size: 16px; margin: 0 0 8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; font: 500 12.5px Inter, sans-serif; }
+  .tags a, .tags span { padding: 2px 10px; border-radius: 4px; background: var(--tag); color: var(--text); }
+  .tags a { color: var(--accent); }
+  .num { font-weight: 600; }
+
+  /* Simple rows */
+  .row { display: flex; justify-content: space-between; gap: 16px; padding: 6px 0; }
+  .row .when { font: 500 14px/1.9 Inter, sans-serif; color: var(--muted); white-space: nowrap; }
+  .sub { color: var(--muted); font-size: 15.5px; }
+
+  footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font: 13px Inter, sans-serif; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .wrap { padding: 36px 16px 56px; }
+    header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .photo { flex-basis: auto; width: 120px; height: 120px; }
+    h1 { font-size: 32px; }
+    .cn { font-size: 20px; }
+    .item { grid-template-columns: 1fr; gap: 12px; }
+    .row { flex-direction: column; gap: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <!-- Replace with your photo: put photo.jpg next to index.html and use
+         <div class="photo" style="background-image:url('photo.jpg')"></div> -->
+    <div class="photo">Your photo<br>(photo.jpg)</div>
+    <div>
+      <h1>Rourou Chen<span class="cn">陈柔柔</span></h1>
+      <p class="role">M.Eng. Student, School of Intelligent Systems Engineering<br>Sun Yat-sen University, Shenzhen</p>
+      <div class="links">
+        <a href="mailto:chenrr27@mail2.sysu.edu.cn">Email</a>
+        <a href="cv.pdf">CV</a>
+        <a href="https://github.com/YOUR_USERNAME">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=YOUR_ID">Google Scholar</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2>About</h2>
+    <p>I am a third-year M.Eng. student at Sun Yat-sen University, advised by Prof. Xiaojun Tan. I received my B.Eng. in Intelligence Science and Technology from the same school in 2024.</p>
+    <p>My research asks how we can <b>generate the driving scenes that real data rarely contains</b>, such as unusual vehicle poses, distant objects, and heavy snow or fog, and use them to <b>find and fix the failures of 3D perception models</b>. I work across 3D reconstruction (Gaussian splatting), diffusion-based editing, and LLM agents that turn language into scene edits.</p>
+    <p class="callout">I am applying for <b>Ph.D. programs starting Fall 2027</b>. Feel free to reach out by email.</p>
+  </section>
+
+  <section>
+    <h2>Research Interests</h2>
+    <ul class="interests">
+      <li><b>Safety-critical scenario generation:</b> controllable synthesis of long-tail object states and adverse weather, with labels that stay geometrically valid.</li>
+      <li><b>Reliable 3D perception:</b> stress-testing and improving detectors on rare, out-of-distribution, and adverse-condition inputs.</li>
+      <li><b>Editable traffic digital twins:</b> metric-consistent driving environments reconstructed from real multi-sensor data and edited through language.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Manuscripts</h2>
+    <div class="item">
+      <!-- Replace with a teaser figure: style="background-image:url('img/recast.jpg')" -->
+      <div class="thumb">RECAST teaser figure</div>
+      <div>
+        <h3>RECAST: Reference-Guided Calibrated Augmentation of Object States for Monocular 3D Detection</h3>
+        <p class="meta">[Author list in submitted order]<br><span class="venue">IEEE Robotics and Automation Letters (RA-L)</span>, under review</p>
+        <p class="desc">A diffusion pipeline that places vehicles from 2D exemplars into target 3D boxes without CAD assets, with cuboid-face conditioning for pose control and detector-in-the-loop label recalibration. On nuScenes, <span class="num">22.9K</span> synthetic instances improve FCOS3D by <span class="num">+1.2 mAP</span> and <span class="num">+1.1 Rare-5 AP</span>.</p>
+        <div class="tags"><a href="#">arXiv</a><a href="#">Project page</a><a href="#">Code</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+
+    <div class="item">
+      <div class="thumb">Before / after weather edit</div>
+      <div>
+        <h3>GeoWeatherEdit: Label-Preserving Adverse-Weather Scenario Generation</h3>
+        <p class="meta">2026 – present</p>
+        <p class="desc">A training-free pipeline that adds snow, rain, and fog to driving scenes while keeping instance geometry and 3D labels intact, by separating constrained 3D instance compositing from one-step diffusion weather transfer. Best structure preservation (Edge F1 <span class="num">0.531</span>) and CLIP-direction alignment (<span class="num">0.162</span>) against WeatherEdit, DriveGEN, and ChordEdit.</p>
+        <div class="tags"><span>Diffusion</span><span>SAM3D</span><span>3D Detection</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb">Digital twin demo (GIF)</div>
+      <div>
+        <h3>Sensor-to-Twin: Editable Traffic Digital Twins from Real Multi-Sensor Data</h3>
+        <p class="meta">2024 – present · Shenzhen Key Research Project</p>
+        <p class="desc">Gaussian digital twins of self-collected campus driving scenes under three sensor setups (3DGS, Street Gaussians, HorizonGS), with metric scale recovered from lane geometry. An LLM multi-agent engine turns language instructions into scene edits: new viewpoints, inserting or removing vehicles, and adding weather.</p>
+        <div class="tags"><a href="#">Demo video</a><span>Gaussian Splatting</span><span>LLM Agents</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb">Merging scenario</div>
+      <div>
+        <h3>LLM-Based Cooperative Decision-Making for Highway On-Ramp Merging</h3>
+        <p class="meta">2025 · Multi-Agent Systems course project</p>
+        <p class="desc">An LLM decision pipeline with four tool calls and rule-based safety checks for mixed connected and human-driven traffic. In an 8-vehicle scenario it reached <span class="num">100%</span> merge success with <span class="num">zero</span> potential conflicts at 25/50/75% CAV penetration.</p>
+        <div class="tags"><span>HighwayEnv</span><span>Tool Use</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="row">
+      <div><b>Sun Yat-sen University</b>, M.Eng. in Electronic Information<br><span class="sub">Advisor: Prof. Xiaojun Tan · Weighted average 86.8/100</span></div>
+      <span class="when">2024 – 2027 (expected)</span>
+    </div>
+    <div class="row">
+      <div><b>Sun Yat-sen University</b>, B.Eng. in Intelligence Science and Technology</div>
+      <span class="when">2020 – 2024</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Beyond Research</h2>
+    <p>I play on the Sun Yat-sen University women's volleyball team: two-time champion of the Guangdong Provincial University Games (2021, 2025), Guangdong Provincial League Division A champion (2024), and National University League runner-up (2025). I also serve as deputy head of refereeing for the SYSU Shenzhen Volleyball Association.</p>
+  </section>
+
+  <footer>Last updated: October 2026</footer>
+</div>
+</body>
+</html>
