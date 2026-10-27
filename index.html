@@ -91,6 +91,9 @@
   .tags a, .tags span { padding: 2px 10px; border-radius: 4px; background: var(--tag); color: var(--text); }
   .tags a { color: var(--accent); }
   .num { font-weight: 600; }
+  .item.full { grid-template-columns: 1fr; }
+  .teaser { display: block; margin: 0 0 16px; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: #fff; }
+  .teaser img { display: block; width: 100%; height: auto; }
 
   /* Simple rows */
   .row { display: flex; justify-content: space-between; gap: 16px; padding: 6px 0; }
@@ -149,9 +152,8 @@
 
   <section>
     <h2>Manuscripts</h2>
-    <div class="item">
-      <!-- Replace with a teaser figure: style="background-image:url('img/recast.jpg')" -->
-      <div class="thumb">RECAST teaser figure</div>
+    <a class="teaser" href="recast.png" target="_blank" rel="noopener"><img src="recast.png" alt="RECAST pipeline overview: coverage-guided allocation, reference-guided 3D generator, visual verification and relabeling, and detector training and stress testing" loading="lazy"></a>
+    <div class="item full">
       <div>
         <h3>RECAST: Reference-Guided Calibrated Augmentation of Object States for Monocular 3D Detection</h3>
         <p class="meta">[Author list in submitted order]<br><span class="venue">IEEE Robotics and Automation Letters (RA-L)</span>, under review</p>
@@ -198,7 +200,7 @@
   <section>
     <h2>Education</h2>
     <div class="row">
-      <div><b>Sun Yat-sen University</b>, M.Eng. in Electronic Information<br><span class="sub">Advisor: Prof. Xiaojun Tan · Weighted average 86.8/100</span></div>
+      <div><b>Sun Yat-sen University</b>, M.Eng. in Electronic Information</div>
       <span class="when">2024 – 2027 (expected)</span>
     </div>
     <div class="row">
