@@ -186,13 +186,13 @@
       </div>
     </div>
 
-    <div class="item">
-      <div class="thumb">Merging scenario</div>
+    <a class="teaser" href="merge_pipeline.png" target="_blank" rel="noopener"><img src="merge_pipeline.png" alt="Pipeline: (a) traffic environment, (b) priority queue and tool-based observation, (c) LLM planning with DeepSeek, (d) safety evaluation with trajectory conflict checks, (e) joint action execution" loading="lazy"></a>
+    <div class="item full">
       <div>
         <h3>LLM-Based Cooperative Decision-Making for Highway On-Ramp Merging</h3>
-        <p class="meta">2025 · Multi-Agent Systems course project</p>
-        <p class="desc">An LLM decision pipeline with four tool calls and rule-based safety checks for mixed connected and human-driven traffic. In an 8-vehicle scenario it reached <span class="num">100%</span> merge success with <span class="num">zero</span> potential conflicts at 25/50/75% CAV penetration.</p>
-        <div class="tags"><span>HighwayEnv</span><span>Tool Use</span></div>
+        <p class="meta">2025 · Multi-Agent Systems course project (team of two)</p>
+        <p class="desc">Connected vehicles take turns in a priority order, and each one runs an LLM agent that perceives its surroundings through tool calls, ranks candidate actions, and keeps the first one that passes traffic-rule and trajectory-conflict checks; its choice is then shared as an intent with the vehicles that decide next. With 8 vehicles at 50% CAV penetration, it reached <span class="num">100%</span> merge success with <span class="num">zero</span> potential conflicts, against 75%, 25%, and 0% for rule-based, virtual-queue, and game-theoretic baselines. Merge success stayed at 100% at 25% and 75% penetration.</p>
+        <div class="tags"><span>HighwayEnv</span><span>LLM Agents</span><span>Tool Use</span></div>
       </div>
     </div>
   </section>
