@@ -94,6 +94,8 @@
   .item.full { grid-template-columns: 1fr; }
   .teaser { display: block; margin: 0 0 16px; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: #fff; }
   .teaser img { display: block; width: 100%; height: auto; }
+  .key { font-size: 16px; margin: 0 0 8px; }
+  .key b { font: 600 12.5px Inter, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-right: 6px; }
 
   /* Simple rows */
   .row { display: flex; justify-content: space-between; gap: 16px; padding: 6px 0; }
@@ -131,16 +133,16 @@
   <section>
     <h2>About</h2>
     <p>I am a third-year M.Eng. student at Sun Yat-sen University, advised by Prof. Xiaojun Tan. I received my B.Eng. in Intelligence Science and Technology from the same school in 2024.</p>
-    <p>My research asks how we can <b>generate the driving scenes that real data rarely contains</b>, such as unusual vehicle poses, distant objects, and heavy snow or fog, while keeping their 3D labels valid, and use them to <b>find and fix the failures of 3D perception models</b>. I work across 3D reconstruction from real multi-sensor data (Gaussian splatting), diffusion-based generation and editing, and LLM agents for scene editing and multi-vehicle decision-making.</p>
+    <p>My research is about building driving scenes that autonomous systems can be trained and tested on. I work on three connected steps: <b>reconstructing editable 3D scenes</b> from real sensor data, <b>generating the rare and adverse cases</b> that real data lacks while keeping their 3D labels reliable, and <b>using these scenes to evaluate and improve</b> perception and decision-making.</p>
     <p class="callout">I am applying for <b>Ph.D. programs starting Fall 2027</b>. Feel free to reach out by email.</p>
   </section>
 
   <section>
     <h2>Research Interests</h2>
     <ul class="interests">
-      <li><b>Safety-critical scenario generation:</b> controllable synthesis of long-tail object states and adverse weather, with labels that stay geometrically valid.</li>
-      <li><b>Reliable 3D perception:</b> stress-testing and improving detectors on rare, out-of-distribution, and adverse-condition inputs.</li>
-      <li><b>Editable traffic digital twins:</b> metric-consistent driving environments reconstructed from real multi-sensor data and edited through language.</li>
+      <li><b>3D scene reconstruction and editing:</b> Gaussian-based digital twins built from real multi-sensor data, with the metric geometry needed to place and move objects.</li>
+      <li><b>Controllable generation for perception:</b> rare object states and adverse weather whose 3D labels can be checked and trusted.</li>
+      <li><b>Reliable autonomy:</b> stress-testing 3D perception, and LLM-based multi-agent decision-making under explicit safety checks.</li>
     </ul>
   </section>
 
@@ -151,8 +153,8 @@
       <div>
         <h3>RECAST: Reference-Guided Calibrated Augmentation of Object States for Monocular 3D Detection</h3>
         <p class="meta"><b>Rourou Chen</b>, Xiangyi Qin, Xiaojun Tan<sup>*</sup><br><span class="venue">IEEE Robotics and Automation Letters (RA-L)</span>, under review &nbsp;·&nbsp; <sup>*</sup>corresponding author</p>
-        <p class="desc">Monocular 3D detectors fail on rare object states such as unusual orientations and distant vehicles. RECAST samples these tail states on purpose and generates them with a reference-guided diffusion model: a 2D exemplar of the vehicle plus a target 3D box, with cuboid-face conditioning for pose control and no CAD assets. A detector-in-the-loop step then checks each generated vehicle and re-fits its 3D label. On nuScenes, <span class="num">22.9K</span> synthetic instances improve FCOS3D by <span class="num">+1.2 mAP</span> and <span class="num">+1.1 Rare-5 AP</span> over a real-replay baseline, and the detector's errors on synthetic instances follow the same trends as its failures on real data.</p>
-        <!-- Add these tags back once each link exists: <a href="ARXIV_URL">arXiv</a> <a href="CODE_URL">Code</a> -->
+        <p class="key"><b>Key problem</b>A generated vehicle often does not land exactly in the 3D box it was asked to fill, so that box cannot be trusted as its training label.</p>
+        <p class="desc">RECAST is a data engine for long-tail monocular 3D detection. Its generator separates what an object looks like from where it should appear: a reference crop supplies appearance through pooled image features, and the target 3D box supplies geometry through one overall cuboid token and six projected face tokens. Generation is directed toward sparse class, distance, and viewing-angle states. Each output is visually checked, and a frozen 3D detector re-estimates its box before it is used for training. RECAST follows commanded orientations more consistently than existing generators (yaw response gain <span class="num">0.665</span> vs. 0.554 for MObI). On nuScenes, <span class="num">22.9K</span> accepted synthetic instances improve FCOS3D by <span class="num">+1.2 mAP</span> and <span class="num">+1.1 Rare-5 AP</span> over matched real replay, and the synthetic objects reproduce the detection difficulty of real ones.</p>
       </div>
     </div>
   </section>
@@ -160,13 +162,13 @@
   <section>
     <h2>Projects</h2>
 
-    <div class="item">
-      <div class="thumb">Before / after weather edit</div>
+    <a class="teaser" href="geoweatheredit.webp" target="_blank" rel="noopener"><img src="geoweatheredit.webp" alt="A construction-zone driving scene shown as the source image and with snow, rain, and fog edits" loading="lazy"></a>
+    <div class="item full">
       <div>
-        <h3>GeoWeatherEdit: Label-Preserving Adverse-Weather Scenario Generation</h3>
-        <p class="meta">May 2026 – present · in progress</p>
-        <p class="desc">Weather editing that changes the whole image tends to distort vehicles and road structure, which breaks their labels. GeoWeatherEdit splits the problem in two. First, it composites object instances in 3D: SAM3D-reconstructed assets are placed only where road region, LiDAR ground height, ground contact, BEV occupancy, and camera visibility all check out. Then a training-free, one-step diffusion editor (ChordEdit) adds snow, rain, or fog. In a pilot on snow, rain, and fog against WeatherEdit, DriveGEN, and standard ChordEdit, it gave the highest background-structure preservation (edge F1 <span class="num">0.531</span>) and tied for the highest CLIP-direction score (<span class="num">0.162</span>). Downstream 3D detection experiments are underway.</p>
-        <div class="tags"><span>Diffusion</span><span>SAM3D</span><span>Data Augmentation</span></div>
+        <h3>GeoWeatherEdit: Geometry-First Adverse-Weather Augmentation</h3>
+        <p class="meta">May 2026 – present · ongoing</p>
+        <p class="key"><b>Key problem</b>Strong weather edits tend to blur or shift object boundaries, so the edited images can no longer be trusted with their original labels.</p>
+        <p class="desc">GeoWeatherEdit handles geometry before appearance. Object instances are built from SAM3D assets, checked for quality, and placed only where road region, ground contact, occupancy, and camera visibility allow. A training-free, one-step diffusion editor (ChordEdit) then adds snow, rain, or fog to the composited scene. In a pilot comparison with WeatherEdit, DriveGEN, and standard ChordEdit, it best preserved background structure (edge F1 <span class="num">0.531</span>). Ablations and downstream 3D detection experiments are in progress.</p>
       </div>
     </div>
 
@@ -175,18 +177,18 @@
       <div>
         <h3>Sensor-to-Twin: Editable Traffic Digital Twins from Real Multi-Sensor Data</h3>
         <p class="meta">Sep. 2024 – present · Shenzhen Key Research Project</p>
-        <p class="desc">Turning real campus captures into driving scenes that can be edited. I reconstructed self-collected scenes as Gaussian digital twins under three sensor setups: camera only (3DGS), vehicle cameras plus LiDAR (Street Gaussians), and ground plus UAV images (HorizonGS), and traced floating artifacts to a <span class="num">~90 ms</span> camera–LiDAR desynchronization. Because these reconstructions have no real-world scale, I recovered metric scale from lane geometry and inverse perspective mapping, so inserted vehicles respect lanes, collisions, and visibility. On top, I re-engineered an open-source LLM multi-agent editor to work across all three backends: a task planner splits each language instruction into edits (insert, remove, view, restore, modify), and specialized agents carry them out in a fixed order over a shared scene state, changing the viewpoint, inserting, removing, or moving vehicles, and adding rain, snow, or fog. Edits are demonstrated on our campus scenes and on public driving datasets.</p>
-        <div class="tags"><span>Gaussian Splatting</span><span>LLM Agents</span></div>
+        <p class="key"><b>Key problem</b>A Gaussian reconstruction can look photorealistic yet lack the metric scale and scene structure needed to place and move objects in it.</p>
+        <p class="desc">Starting from self-collected campus data, I reconstructed driving scenes with three Gaussian backends: camera only (3DGS), vehicle cameras plus LiDAR (Street Gaussians), and ground plus UAV images (HorizonGS). This involved calibration, dynamic-object masks, 3D box and lane annotation, and tracing floating artifacts to a <span class="num">~90 ms</span> camera–LiDAR timing offset. I recovered metric scale from lane geometry and inverse perspective mapping, so inserted vehicles respect lanes, collisions, and visibility. On top, I re-engineered an open-source LLM multi-agent editor to run on all three backends: a task planner splits a language instruction into edits, and specialized agents change the viewpoint, insert, remove, or move vehicles, and add rain, snow, or fog through a shared scene state. Edits are demonstrated on campus scenes and public driving datasets.</p>
       </div>
     </div>
 
-    <a class="teaser" href="merge_pipeline.png" target="_blank" rel="noopener"><img src="merge_pipeline.png" alt="Pipeline: (a) traffic environment, (b) priority queue and tool-based observation, (c) LLM planning with DeepSeek, (d) safety evaluation with trajectory conflict checks, (e) joint action execution" loading="lazy"></a>
+    <a class="teaser" href="merge_pipeline.png" target="_blank" rel="noopener"><img src="merge_pipeline.png" alt="Pipeline: (a) traffic environment, (b) priority queue and tool-based observation, (c) LLM planning, (d) safety evaluation with trajectory conflict checks, (e) joint action execution" loading="lazy"></a>
     <div class="item full">
       <div>
         <h3>LLM-Based Cooperative Decision-Making for Highway On-Ramp Merging</h3>
         <p class="meta">Jun. 2025 · Independent project, Multi-Agent Systems course</p>
-        <p class="desc">Connected vehicles take turns in a priority order, and each one runs an LLM agent that perceives its surroundings through tool calls, ranks candidate actions, and keeps the first one that passes traffic-rule and trajectory-conflict checks; its choice is then shared as an intent with the vehicles that decide next. In an 8-vehicle mixed-traffic scenario, it achieved a higher merge success rate than rule-based, virtual-queue, and game-theoretic baselines, with no potential conflicts, and every vehicle merged successfully at 25%, 50%, and 75% CAV penetration.</p>
-        <div class="tags"><span>HighwayEnv</span><span>LLM Agents</span><span>Tool Use</span></div>
+        <p class="key"><b>Key problem</b>An LLM can propose sensible driving actions, but in a multi-vehicle merge it needs real traffic information and a hard safety check before it acts.</p>
+        <p class="desc">In HighwayEnv, I built an on-ramp merge with connected and human-driven vehicles at 25%, 50%, and 75% connected-vehicle penetration. Connected vehicles decide in priority order. Each runs an LLM agent that queries legal actions, reachable lanes, nearby vehicles, and trajectory conflicts through tools, keeps the first action that passes rule and conflict checks, and shares it as an intent with the vehicles that decide next. In an 8-vehicle scenario it achieved a higher merge success rate than rule-based, virtual-queue, and game-theoretic baselines, with no potential conflicts, and every vehicle merged successfully at all three penetration rates.</p>
       </div>
     </div>
   </section>
