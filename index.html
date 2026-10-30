@@ -119,17 +119,11 @@
 <div class="wrap">
 
   <header>
-    <!-- Replace with your photo: put photo.jpg next to index.html and use
-         <div class="photo" style="background-image:url('photo.jpg')"></div> -->
-    <div class="photo">Your photo<br>(photo.jpg)</div>
     <div>
       <h1>Rourou Chen<span class="cn">陈柔柔</span></h1>
       <p class="role">M.Eng. Student, School of Intelligent Systems Engineering<br>Sun Yat-sen University, Shenzhen</p>
       <div class="links">
         <a href="mailto:chenrr27@mail2.sysu.edu.cn">Email</a>
-        <a href="cv.pdf">CV</a>
-        <a href="https://github.com/YOUR_USERNAME">GitHub</a>
-        <a href="https://scholar.google.com/citations?user=YOUR_ID">Google Scholar</a>
       </div>
     </div>
   </header>
@@ -137,7 +131,7 @@
   <section>
     <h2>About</h2>
     <p>I am a third-year M.Eng. student at Sun Yat-sen University, advised by Prof. Xiaojun Tan. I received my B.Eng. in Intelligence Science and Technology from the same school in 2024.</p>
-    <p>My research asks how we can <b>generate the driving scenes that real data rarely contains</b>, such as unusual vehicle poses, distant objects, and heavy snow or fog, and use them to <b>find and fix the failures of 3D perception models</b>. I work across 3D reconstruction (Gaussian splatting), diffusion-based editing, and LLM agents that turn language into scene edits.</p>
+    <p>My research asks how we can <b>generate the driving scenes that real data rarely contains</b>, such as unusual vehicle poses, distant objects, and heavy snow or fog, while keeping their 3D labels valid, and use them to <b>find and fix the failures of 3D perception models</b>. I work across 3D reconstruction from real multi-sensor data (Gaussian splatting), diffusion-based generation and editing, and LLM agents for scene editing and multi-vehicle decision-making.</p>
     <p class="callout">I am applying for <b>Ph.D. programs starting Fall 2027</b>. Feel free to reach out by email.</p>
   </section>
 
@@ -151,14 +145,14 @@
   </section>
 
   <section>
-    <h2>Manuscripts</h2>
+    <h2>Publications</h2>
     <a class="teaser" href="recast.png" target="_blank" rel="noopener"><img src="recast.png" alt="RECAST pipeline overview: coverage-guided allocation, reference-guided 3D generator, visual verification and relabeling, and detector training and stress testing" loading="lazy"></a>
     <div class="item full">
       <div>
         <h3>RECAST: Reference-Guided Calibrated Augmentation of Object States for Monocular 3D Detection</h3>
-        <p class="meta">[Author list in submitted order]<br><span class="venue">IEEE Robotics and Automation Letters (RA-L)</span>, under review</p>
-        <p class="desc">A diffusion pipeline that places vehicles from 2D exemplars into target 3D boxes without CAD assets, with cuboid-face conditioning for pose control and detector-in-the-loop label recalibration. On nuScenes, <span class="num">22.9K</span> synthetic instances improve FCOS3D by <span class="num">+1.2 mAP</span> and <span class="num">+1.1 Rare-5 AP</span>.</p>
-        <div class="tags"><a href="#">arXiv</a><a href="#">Project page</a><a href="#">Code</a></div>
+        <p class="meta"><b>Rourou Chen</b>, Xiangyi Qin, Xiaojun Tan<sup>*</sup><br><span class="venue">IEEE Robotics and Automation Letters (RA-L)</span>, under review &nbsp;·&nbsp; <sup>*</sup>corresponding author</p>
+        <p class="desc">Monocular 3D detectors fail on rare object states such as unusual orientations and distant vehicles. RECAST samples these tail states on purpose and generates them with a reference-guided diffusion model: a 2D exemplar of the vehicle plus a target 3D box, with cuboid-face conditioning for pose control and no CAD assets. A detector-in-the-loop step then checks each generated vehicle and re-fits its 3D label. On nuScenes, <span class="num">22.9K</span> synthetic instances improve FCOS3D by <span class="num">+1.2 mAP</span> and <span class="num">+1.1 Rare-5 AP</span> over a real-replay baseline, and the detector's errors on synthetic instances follow the same trends as its failures on real data.</p>
+        <!-- Add these tags back once each link exists: <a href="ARXIV_URL">arXiv</a> <a href="CODE_URL">Code</a> -->
       </div>
     </div>
   </section>
@@ -170,19 +164,19 @@
       <div class="thumb">Before / after weather edit</div>
       <div>
         <h3>GeoWeatherEdit: Label-Preserving Adverse-Weather Scenario Generation</h3>
-        <p class="meta">2026 – present</p>
-        <p class="desc">A training-free pipeline that adds snow, rain, and fog to driving scenes while keeping instance geometry and 3D labels intact, by separating constrained 3D instance compositing from one-step diffusion weather transfer. Best structure preservation (Edge F1 <span class="num">0.531</span>) and CLIP-direction alignment (<span class="num">0.162</span>) against WeatherEdit, DriveGEN, and ChordEdit.</p>
-        <div class="tags"><span>Diffusion</span><span>SAM3D</span><span>3D Detection</span></div>
+        <p class="meta">May 2026 – present · in progress</p>
+        <p class="desc">Weather editing that changes the whole image tends to distort vehicles and road structure, which breaks their labels. GeoWeatherEdit splits the problem in two. First, it composites object instances in 3D: SAM3D-reconstructed assets are placed only where road region, LiDAR ground height, ground contact, BEV occupancy, and camera visibility all check out. Then a training-free, one-step diffusion editor (ChordEdit) adds snow, rain, or fog. In a pilot on snow, rain, and fog against WeatherEdit, DriveGEN, and standard ChordEdit, it gave the highest background-structure preservation (edge F1 <span class="num">0.531</span>) and tied for the highest CLIP-direction score (<span class="num">0.162</span>). Downstream 3D detection experiments are underway.</p>
+        <div class="tags"><span>Diffusion</span><span>SAM3D</span><span>Data Augmentation</span></div>
       </div>
     </div>
 
-    <div class="item">
-      <div class="thumb">Digital twin demo (GIF)</div>
+    <a class="teaser" href="sensor2twin.png" target="_blank" rel="noopener"><img src="sensor2twin.png" alt="Sensor-to-Twin pipeline: (1) multi-source scene reconstruction from self-collected RGB, LiDAR and UAV data into HorizonGS, Street Gaussians and 3DGS scenes; (2) hierarchical multi-agent planning with a task planner, camera, removal, asset and motion agents over a shared scene state; (3) backend-agnostic hybrid rendering with scene, deletion, foreground and weather agents; (4) controllable scenario synthesis: adding an SUV, rain, snow and fog, and left, front and right camera views" loading="lazy"></a>
+    <div class="item full">
       <div>
         <h3>Sensor-to-Twin: Editable Traffic Digital Twins from Real Multi-Sensor Data</h3>
-        <p class="meta">2024 – present · Shenzhen Key Research Project</p>
-        <p class="desc">Gaussian digital twins of self-collected campus driving scenes under three sensor setups (3DGS, Street Gaussians, HorizonGS), with metric scale recovered from lane geometry. An LLM multi-agent engine turns language instructions into scene edits: new viewpoints, inserting or removing vehicles, and adding weather.</p>
-        <div class="tags"><a href="#">Demo video</a><span>Gaussian Splatting</span><span>LLM Agents</span></div>
+        <p class="meta">Sep. 2024 – present · Shenzhen Key Research Project</p>
+        <p class="desc">Turning real campus captures into driving scenes that can be edited. I reconstructed self-collected scenes as Gaussian digital twins under three sensor setups: camera only (3DGS), vehicle cameras plus LiDAR (Street Gaussians), and ground plus UAV images (HorizonGS), and traced floating artifacts to a <span class="num">~90 ms</span> camera–LiDAR desynchronization. Because these reconstructions have no real-world scale, I recovered metric scale from lane geometry and inverse perspective mapping, so inserted vehicles respect lanes, collisions, and visibility. On top, I re-engineered an open-source LLM multi-agent editor to work across all three backends: a task planner splits each language instruction into edits (insert, remove, view, restore, modify), and specialized agents carry them out in a fixed order over a shared scene state, changing the viewpoint, inserting, removing, or moving vehicles, and adding rain, snow, or fog. Edits are demonstrated on our campus scenes and on public driving datasets.</p>
+        <div class="tags"><span>Gaussian Splatting</span><span>LLM Agents</span></div>
       </div>
     </div>
 
@@ -190,8 +184,8 @@
     <div class="item full">
       <div>
         <h3>LLM-Based Cooperative Decision-Making for Highway On-Ramp Merging</h3>
-        <p class="meta">2025 · Multi-Agent Systems course project (team of two)</p>
-        <p class="desc">Connected vehicles take turns in a priority order, and each one runs an LLM agent that perceives its surroundings through tool calls, ranks candidate actions, and keeps the first one that passes traffic-rule and trajectory-conflict checks; its choice is then shared as an intent with the vehicles that decide next. With 8 vehicles at 50% CAV penetration, it reached <span class="num">100%</span> merge success with <span class="num">zero</span> potential conflicts, against 75%, 25%, and 0% for rule-based, virtual-queue, and game-theoretic baselines. Merge success stayed at 100% at 25% and 75% penetration.</p>
+        <p class="meta">Jun. 2025 · Independent project, Multi-Agent Systems course</p>
+        <p class="desc">Connected vehicles take turns in a priority order, and each one runs an LLM agent that perceives its surroundings through tool calls, ranks candidate actions, and keeps the first one that passes traffic-rule and trajectory-conflict checks; its choice is then shared as an intent with the vehicles that decide next. In an 8-vehicle mixed-traffic scenario, it achieved a higher merge success rate than rule-based, virtual-queue, and game-theoretic baselines, with no potential conflicts, and every vehicle merged successfully at 25%, 50%, and 75% CAV penetration.</p>
         <div class="tags"><span>HighwayEnv</span><span>LLM Agents</span><span>Tool Use</span></div>
       </div>
     </div>
